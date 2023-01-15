@@ -1,0 +1,32 @@
+.tileBtn {
+  width: 8em;
+  height: 7em;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 2em;
+  :hover {
+    background-color: rgb(241, 241, 241);
+  }
+  :not(.disabled) {
+    cursor: pointer;
+  }
+}
+.tile {
+  width: 8em;
+  margin: 1em;
+}
+.p-avatar-clickable {
+  margin-right: 3.5rem !important;
+}
+.mb-0 {
+  overflow-wrap: anywhere;
+}
+.p-message .p-message-wrapper {
+  padding: 5px;
+}
+.p-toolbar {
+  background: #efefef;
+  border: 1px solid #dee2e6;
+  padding: 7px;
+  border-radius: 4px;
+}

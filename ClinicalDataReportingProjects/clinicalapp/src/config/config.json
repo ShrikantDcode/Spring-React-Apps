@@ -1,0 +1,9 @@
+{
+  "apiBase": "https://s3onoaiq3b-vpce-01563c5d1c36f10e3.execute-api.us-east-2.amazonaws.com/dev/",
+  "azureAD": {
+    "clientId": "6692e852-b874-4dcd-bc64-dc6bad227521",
+    "authority": "https://login.microsoftonline.com/a13f49ae-a919-42f6-b3a3-8f2baed063be/",
+    "redirectUri": "http://localhost:3012/"
+  },
+  "env": "Local"
+}

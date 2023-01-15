@@ -40,7 +40,18 @@ public class PatientController {
 
 	@RequestMapping(value = "/patients", method = RequestMethod.GET)
 	public List<Patient> getPatients() {
-		return patientRepository.findAll();
+		List<Patient> allPatients = patientRepository.findAllPatients();//.findAll();
+		System.out.println("**repo method changed ");
+		return allPatients;
+	}
+
+	@RequestMapping(value = "/patients/name/{firstName}", method = RequestMethod.GET)
+	public List<Patient> getPatientsLikeName(@PathVariable("firstName") String firstName) {
+		//List<Patient> pList = patientRepository.findByFirstNameContaining(firstName);
+		//List<Patient> pList = patientRepository.findPatientsByfName(firstName);
+		List<Patient> pList = patientRepository.findPatientsByfNameNative(firstName);
+		System.out.println("$$% "+ pList);
+		return pList;
 	}
 
 	@RequestMapping(value = "/patients/analyze/{id}", method = RequestMethod.GET)

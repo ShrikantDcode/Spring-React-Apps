@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: com.iqvia.clinicals.api.restcontrollers.PatientControllerTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.641 s - in com.iqvia.clinicals.api.restcontrollers.PatientControllerTest
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 2.044 s <<< FAILURE! - in com.iqvia.clinicals.api.restcontrollers.PatientControllerTest
+testGetPatients(com.iqvia.clinicals.api.restcontrollers.PatientControllerTest)  Time elapsed: 1.81 s  <<< FAILURE!
+java.lang.AssertionError: expected:<0> but was:<2>
+	at com.iqvia.clinicals.api.restcontrollers.PatientControllerTest.testGetPatients(PatientControllerTest.java:71)
+

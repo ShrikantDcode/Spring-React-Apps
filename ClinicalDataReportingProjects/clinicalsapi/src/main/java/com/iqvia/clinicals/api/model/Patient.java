@@ -16,7 +16,7 @@ public class Patient {
 	private String lastName;
 	private String firstName;
 	private int age;
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "patient")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "patient")
 	private List<ClinicalData> clinicalData;
 
 	public int getId() {
@@ -59,4 +59,13 @@ public class Patient {
 		this.clinicalData = clinicalData;
 	}
 
+	@Override
+	public String toString() {
+		return "Patient{" +
+				"id=" + id +
+				", lastName='" + lastName + '\'' +
+				", firstName='" + firstName + '\'' +
+				", age=" + age +
+				'}';
+	}
 }

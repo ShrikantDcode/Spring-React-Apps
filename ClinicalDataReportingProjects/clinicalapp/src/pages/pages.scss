@@ -1,0 +1,9 @@
+.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td:has(.highlighted-red) {
+    padding: 0.5rem 0.5rem;
+    background-color: #f8d7da;
+}
+
+.p-datatable.p-datatable-sm .p-datatable-tbody > tr > td:has(.highlighted-green) {
+    padding: 0.5rem 0.5rem;
+    background-color: #d4edda;
+}

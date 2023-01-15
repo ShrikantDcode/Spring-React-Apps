@@ -1,15 +1,70 @@
+@media only screen and (min-width: 1200px) {
+  .container {
+    width: 1800px;
+  }
+}
 body {
   margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+main {
+  min-height: 80vh;
 }
 
+.status-badge {
+  border-radius: 2px;
+  padding: 0.25em 0.5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+}
+
+.status-green {
+  background: #c8e6c9;
+  color: #256029;
+}
+.status-blue {
+  background-color: #b3e5fc;
+  color: #23547b;
+}
+.status-red {
+  background: #ffcdd2;
+  color: #c63737;
+}
+
+.status-yellow {
+  background: #feedaf;
+  color: #8a5340;
+}
+.status-purple {
+  background-color: #eccfff;
+  color: #694382;
+}
+.status-orange {
+  background-color: #ffd8b2;
+  color: #805b36;
+}
+
+.completion-status-icon {
+  font-size: 0.7em;
+  font-weight: bold;
+  border: 2px solid;
+  padding: 5px;
+  border-radius: 50%;
+}
+
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

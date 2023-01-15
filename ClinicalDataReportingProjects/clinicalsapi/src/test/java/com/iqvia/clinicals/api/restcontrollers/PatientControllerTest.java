@@ -15,6 +15,8 @@ import java.util.Optional;
 import com.iqvia.clinicals.api.model.ClinicalData;
 import com.iqvia.clinicals.api.model.Patient;
 import com.iqvia.clinicals.api.repository.PatientRepository;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 public class PatientControllerTest {
 
@@ -41,7 +43,7 @@ public class PatientControllerTest {
 		Optional<Patient> optionalPatient = Optional.of(patient);
 		PatientController controller = new PatientController(patientRepository);
 
-		when(patientRepository.findById(1)).thenReturn(optionalPatient);
+		Mockito.when(patientRepository.findById(1)).thenReturn(optionalPatient);
 		Patient finalResult = controller.getPatient(1);
 		assertNotNull(finalResult);
 		assertEquals(finalResult, patient);
@@ -64,6 +66,7 @@ public class PatientControllerTest {
 
 		when(patientRepository.findAll()).thenReturn(patientList);
 		List<Patient> finalResult = controller.getPatients();
+		System.out.println("********** "+finalResult);
 		assertNotNull(finalResult);
 		assertEquals(finalResult.size(), 2);
 		assertEquals(finalResult.get(1), patient2);
@@ -90,7 +93,7 @@ public class PatientControllerTest {
 		Optional<Patient> optionalPatient = Optional.of(patient);
 
 		when(patientRepository.findById(1)).thenReturn(optionalPatient);
-
+		System.out.println(patientRepository.findAll());
 		PatientController controller = new PatientController(patientRepository);
 		Patient finalResult = controller.analyse(1);
 
@@ -98,6 +101,13 @@ public class PatientControllerTest {
 		assertEquals(finalResult.getClinicalData().size(), 2);
 		assert (finalResult.getClinicalData().get(1).getComponentValue().contentEquals("25.651041"));
 
+	}
+
+	@Test
+	public void testGetPatientsLikeName() {
+		PatientRepository patientRepository = mock(PatientRepository.class);
+		System.out.println(patientRepository.findByFirstNameContaining("Shri"));
+		System.out.println(patientRepository.findAll());
 	}
 
 }
