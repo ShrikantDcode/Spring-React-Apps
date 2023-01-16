@@ -58,23 +58,25 @@ const FileUploadWrapper = ({
     let pointsColorSet = [];
     if (parsedData && parsedData.length) {
       let columns = {};
-      let _summary = {};
+      let _excelSummary = {};
       //Extract rows from excel
       let tableRows = parsedData;
       parsedData.every((item, index) => {
         if (item.__EMPTY_1) {
-          _summary = { ..._summary, [item.__EMPTY]: item.__EMPTY_1 };
+          _excelSummary = { ..._excelSummary, [item.__EMPTY]: item.__EMPTY_1 };
+        }
+        if(item.__EMPTY.includes('P&L Statement')) {
+          _excelSummary = { ..._excelSummary, statementTenure: item.__EMPTY };
         }
         if (item.__EMPTY === "Symbol") {
           columns = item;
           tableRows = tableRows.slice(index + 1, parsedData.length);
           return false;
         }
-
         return true;
       });
       console.log(tableRows);
-      console.log(_summary);
+      console.log(_excelSummary);
       console.log(columns);
 
       finalList = tableRows.map((item) => {
@@ -112,7 +114,7 @@ const FileUploadWrapper = ({
         columns: finalList?.[0] && Object.keys(finalList[0]),
         data: finalList
       }
-      getDataSets(_chartData, _dataTable);
+      getDataSets(_chartData, _dataTable, _excelSummary);
       //setColumns(finalList?.[0] && Object.keys(finalList[0]));
       //setTableData(finalList);
     }

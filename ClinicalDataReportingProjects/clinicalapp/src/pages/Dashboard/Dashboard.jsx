@@ -19,6 +19,7 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
   const [addedRows, setAddedRows] = useState({});
   const [editedUsers, setEditedUsers] = useState();
   const [tableDataset, setTableDataset] = useState({});
+  const [excelSummary, setExcelSummary] = useState({});
   const [summary, setSummary] = useState({
     highestPnl: 0,
     lowestPnl: 0,
@@ -29,7 +30,6 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
     fails: 0,
   });
  
-  console.log("summary ", summary);
   const navigate = useNavigate();
   let toast = useRef(null);
   const autoUpdateMessage = useRef(null);
@@ -55,18 +55,12 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
     if (tableData) {
       let _highestPoints = tableData.sort((a, b) => b.Points - a.Points)?.[0]
         ?.Points;
-      let _highestPnl = tableData.sort(
-        (a, b) => b["Realized P&L"] - a["Realized P&L"]
-      )?.[0]?.["Realized P&L"];
-      let _lowestPnl = tableData.sort(
-        (a, b) => a["Realized P&L"] - b["Realized P&L"]
-      )?.[0]?.["Realized P&L"];
-      let _highestQuantity = tableData.sort(
-        (a, b) => b.Quantity - a.Quantity
-      )?.[0]?.Quantity;
+      let _highestPnl = tableData.sort((a, b) => b["Realized P&L"] - a["Realized P&L"])?.[0]?.["Realized P&L"];
+      let _lowestPnl = tableData.sort((a, b) => a["Realized P&L"] - b["Realized P&L"])?.[0]?.["Realized P&L"];
+      let _highestQuantity = tableData.sort((a, b) => b.Quantity - a.Quantity)?.[0]?.Quantity;
       let wins = 0;
       let fails = 0;
-      tableData.forEach((item) => {
+      tableData.forEach(item => {
         if (item["Realized P&L"] > 0) {
           wins = wins + 1;
         } else {
@@ -81,7 +75,7 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
         highestQuantity: _highestQuantity,
         highestValues: [_highestPnl, _highestPoints, _highestQuantity],
         wins: wins,
-        fails: fails,
+        fails: fails
       };
     }
     return _summary;
@@ -150,9 +144,14 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
     global: { value: null, matchMode: FilterMatchMode.CONTAINS },
   });
 
-  const getDataSets = (_chartData, _dataTable) => {
+  const getDataSets = (_chartData, _dataTable, _excelSummary) => {
     //setChartDataset(_chartData);
     setTableDataset(_dataTable);
+    _excelSummary = {..._excelSummary, 
+      ['Realized P&L']:  Math.round(_excelSummary?.['Realized P&L']),
+      ['Charges']:  Math.round(_excelSummary?.['Charges']),
+      finalIncome: Math.round(_excelSummary?.['Realized P&L'] - _excelSummary?.['Charges'])}
+    setExcelSummary(_excelSummary);
   };
 
   const renderHeader1 = () => {
@@ -193,7 +192,7 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
   const toolbarInfoTemplate = (
     <>
       <div>
-        <h5>Trading Data</h5>
+        <h5>{`${excelSummary?.statementTenure || ''}`}</h5>
         <div className="mt-3">
           <Message
             severity="info"
@@ -224,6 +223,21 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
             severity="error"
             className="mr-2 font-bold"
             content={`Fails : ${summary?.fails || 0}`}
+          />
+          <Message
+            severity="error"
+            className="mr-2 font-bold"
+            content={`Brokerage & Charges : ${-1*Number(excelSummary?.['Charges']) || 0}`}
+          />          
+          <Message
+            severity="info"
+            className="mr-2 font-bold"
+            content={`Realized P&L : ${excelSummary?.['Realized P&L'] || 0}`}
+          />
+          <Message
+            severity="info"
+            className="mr-2 font-bold"
+            content={`Final Income : ${excelSummary?.['finalIncome'] || 0}`}
           />
           <Button
             className="p-button p-button-warning"

@@ -216,7 +216,6 @@ const AnalyseCharts = () => {
   const [chartDataset, setChartDataset] = useState({});
   const [tableDataset, setTableDataset] = useState({});
   const [chartType, setChartType] = useState("bar");
-  console.log("chartDataset ", chartDataset);
   let basicOptions = {
     maintainAspectRatio: false,
     aspectRatio: 0.8,
