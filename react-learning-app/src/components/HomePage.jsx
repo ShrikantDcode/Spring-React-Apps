@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from 'react-router-dom';
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
@@ -8,10 +7,10 @@ const HomePage = () => {
     const res = await fetch("https://jsonplaceholder.typicode.com/users");
     return res.json();
   };
-  const { data, status, isFetching } = useQuery(["users"], fetchUsers, 
+  const { data, status, isFetching } = useQuery(["users", page], fetchUsers, 
   { 
     cacheTime: 3000,
-    refetchOnMount: true,
+    //refetchOnMount: true,
     refetchOnWindowFocus: false
   });
   console.log(data, status);
