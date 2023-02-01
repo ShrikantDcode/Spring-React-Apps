@@ -216,6 +216,8 @@ const AnalyseCharts = () => {
   const [chartDataset, setChartDataset] = useState({});
   const [tableDataset, setTableDataset] = useState({});
   const [chartType, setChartType] = useState("bar");
+  const [excelSummary, setExcelSummary] = useState({});
+  
   let basicOptions = {
     maintainAspectRatio: false,
     aspectRatio: 0.8,
@@ -250,8 +252,8 @@ const AnalyseCharts = () => {
     let component = <></>;
     if (type === "bar") {
       component = (
-        <div style={{ width: 700 }}>
-          <Chart type="bar" data={_chartData?.barChart?.data} />
+        <div className="card flex justify-content-center">
+          <Chart type="bar" data={_chartData?.barChart?.data} style={{ position: 'relative', width: '70%' }}/>
         </div>
       );
     } else if (type === "pie") {
@@ -281,14 +283,16 @@ const AnalyseCharts = () => {
     return component;
   };
 
-  const getDataSets = (_chartData, _dataTable) => {
+  const getDataSets = (_chartData, _dataTable, _excelSummary) => {
     setChartDataset(_chartData);
-    setTableDataset(_dataTable);
+    setTableDataset(_dataTable);   
+    setExcelSummary(_excelSummary);
   };
 
   if (showDataTable) {
     return (
       <Dashboard
+        _excelSummary={excelSummary}
         _tableDataset={tableDataset}
         onClickChartsHandler={() => setShowDataTable(false)}
       />
@@ -321,15 +325,16 @@ const AnalyseCharts = () => {
 
           <div className="col-6"></div>
         </div>
-        <div className="grid" style={{ marginTop: "0.7rem" }}>
+        {getChart(chartType, chartDataset)}
+        {/* <div className="grid" style={{ marginTop: "0.7rem" }}>
           <div className="col-2"></div>
           <div className="col-8">{getChart(chartType, chartDataset)}</div>
           <div className="col-2">
             {/* <div style={{ width: 400 }}>
               <Chart type="pie" data={optionspnlDataPie} />
-            </div> */}
+            </div> 
           </div>
-        </div>
+        </div> */}
         <div className="grid" style={{ marginTop: "1rem" }}>
           <div className="col-2"></div>
           <div className="col-8">

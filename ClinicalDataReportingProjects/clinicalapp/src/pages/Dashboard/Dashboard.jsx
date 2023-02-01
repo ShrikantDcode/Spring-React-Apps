@@ -12,7 +12,7 @@ import { Toast } from "primereact/toast";
 import "./../pages.scss";
 import FileUploadWrapper from "../../components/FileUploadWrapper";
 
-const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
+const Dashboard = ({ _excelSummary, _tableDataset, onClickChartsHandler }) => {
   const [users, setUsers] = useState();
   const [editingRows, setEditingRows] = useState({});
   const [changedRows, setChangedRows] = useState({});
@@ -44,6 +44,7 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
     //   });
     // console.log("tableData>> ",tableData);
     setTableDataset(_tableDataset);
+    setExcelSummary(_excelSummary);
   }, []);
 
   useEffect(() => {
@@ -147,10 +148,6 @@ const Dashboard = ({ _tableDataset, onClickChartsHandler }) => {
   const getDataSets = (_chartData, _dataTable, _excelSummary) => {
     //setChartDataset(_chartData);
     setTableDataset(_dataTable);
-    _excelSummary = {..._excelSummary, 
-      ['Realized P&L']:  Math.round(_excelSummary?.['Realized P&L']),
-      ['Charges']:  Math.round(_excelSummary?.['Charges']),
-      finalIncome: Math.round(_excelSummary?.['Realized P&L'] - _excelSummary?.['Charges'])}
     setExcelSummary(_excelSummary);
   };
 

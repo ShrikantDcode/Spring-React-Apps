@@ -1,19 +1,41 @@
 import React, { useState } from "react";
 import { useQuery } from "react-query";
+import Counter from "./Counter";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
+  const [check, setCheck] = useState();
+
   const fetchUsers = async () => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/users");
+    const res = await fetch("https://jsonplaceholder.typicode.com/users/"+page);
+    
     return res.json();
   };
-  const { data, status, isFetching } = useQuery(["users", page], fetchUsers, 
+
+  const onSuccess = (data) => {
+    //console.log("fetching success ! ",data);
+    setCheck(new Date());
+  }
+
+  const onError = () => {
+    console.log("fetching Error ! ");
+  }
+
+
+  const { data, status, isLoading, isFetching } = useQuery(["users", page], fetchUsers, 
   { 
-    cacheTime: 3000,
-    //refetchOnMount: true,
-    refetchOnWindowFocus: false
+    //cacheTime: 3000, // deafult cache time 5 mins
+    //staleTime: 1000 * 60, //It won't fetch data again for 1 mins
+    //refetchOnMount: true, //data fetched only once i.e. on component mount
+    //refetchOnWindowFocus: false, //to avoid refetch on focus window
+    //refetchOnReconnect: true, // refetch in case of network failure
+    //refetchInterval: 3000, // 3 secs
+    //refetchIntervalInBackground: true, //it fetches data even if window is not focused
+    //enabled: false // Can be used along with refetch
+    onSuccess
   });
-  console.log(data, status);
+ 
+  
   return (
     <div>
       <div style={{ width: "600px" }}>
@@ -25,12 +47,13 @@ const HomePage = () => {
           )}
         </div>
 
-        {isFetching && <h2 style={{ color: "red" }}>is fetching...</h2>}    
-        {status === "loading" && (
+           
+        {isLoading && (
           <div>
-            <h2 style={{ color: "indigo" }}>Loading ...</h2>
+            <h2 style={{ color: "red" }}>Loading ...</h2>
           </div>
         )}
+        {isFetching && <h3 style={{ color: "indigo" }}>is fetching...</h3>} 
         {status === "success" && (
           <div>
             <h2 style={{ color: "green" }}>Success</h2>
@@ -43,7 +66,7 @@ const HomePage = () => {
         )}
       </div>
       <div
-          key={data?.[1]?.id}
+          key={data?.id}
           style={{
             border: "2px solid teal",
             minWidth: "600px",
@@ -51,8 +74,9 @@ const HomePage = () => {
             padding: "10px",
             fontSize: "20px",
           }}>
-          <span>{data?.[1]?.name}</span>
+          <span>{data?.name}</span>
         </div>
+        <Counter />
         {/* <Link to="/">
                 <button className="btn btn-primary">User List</button>
        </Link>       */}
