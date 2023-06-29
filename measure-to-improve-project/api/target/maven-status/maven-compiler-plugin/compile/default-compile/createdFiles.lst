@@ -1,0 +1,8 @@
+com\iqvia\clinicals\api\repository\ClinicalDataRepository.class
+com\iqvia\clinicals\api\MeasureToImproveApplication.class
+com\iqvia\clinicals\api\restcontrollers\dto\ClinicalDataRequest.class
+com\iqvia\clinicals\api\repository\PatientRepository.class
+com\iqvia\clinicals\api\model\ClinicalData.class
+com\iqvia\clinicals\api\restcontrollers\PatientController.class
+com\iqvia\clinicals\api\model\Patient.class
+com\iqvia\clinicals\api\restcontrollers\ClinicalController.class
